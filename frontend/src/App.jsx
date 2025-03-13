@@ -12,13 +12,18 @@ import ProfilePage from "./pages/ProfilePage.jsx";
 
 import { axiosInstance } from './lib/axios.js';
 
-import { useAuthStore } from './store/useAuthStore.jsx';
+import { useAuthStore } from './store/useAuthStore.js';
+
+import { Navigate } from 'react-router-dom';
+import { useThemeStore } from './store/useThemeStore.js';
 
 import { Navigate } from 'react-router-dom';
 
 const App = () => {
 
   const {authUser, checkAuth, isCheckingAuth}= useAuthStore();
+
+  const{theme} =useThemeStore();
 
   useEffect(()=>{
     checkAuth()
@@ -37,7 +42,11 @@ const App = () => {
 
 
   return (
+<<<<<<< HEAD
     <div data-theme="retro">
+=======
+    <div data-theme={theme}>
+>>>>>>> tanmay
       <Navbar/>
 
       <Routes>
