@@ -15,10 +15,13 @@ import { axiosInstance } from './lib/axios.js';
 import { useAuthStore } from './store/useAuthStore.js';
 
 import { Navigate } from 'react-router-dom';
+import { useThemeStore } from './store/useThemeStore.js';
 
 const App = () => {
 
   const {authUser, checkAuth, isCheckingAuth}= useAuthStore();
+
+  const{theme} =useThemeStore();
 
   useEffect(()=>{
     checkAuth()
@@ -37,7 +40,7 @@ const App = () => {
 
 
   return (
-    <div>
+    <div data-theme={theme}>
       <Navbar/>
 
       <Routes>
