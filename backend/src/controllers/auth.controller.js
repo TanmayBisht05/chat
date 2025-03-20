@@ -6,28 +6,38 @@ import cloudinary from "../lib/cloudinary.js";
 export const signup= async (req,res)=>{
     const {fullName,email,password}=req.body;
     console.log("request received!");
+    
     try{
 
         if(!fullName || !email || !password ){
             return res.status(400).json({message: "All fields are required!"});
         }
+
+
         // hash password 
         if(password.length<6){
             return res.status(400).json({message:"Password must be at least 6 characters"});
         }
 
-        const user=await User.findOne({email});
+        const user=await User.findOne({email});                 
+        // actual syntax is:
+        // const user =await User.findOne({email: email}), but since the attribute name is same here, we can use the shorthand 
 
         if(user) return res.status(400).json({message: "Email already exists"});
 
         const salt=await bcrypt.genSalt(10);
         const hashedPassword= await bcrypt.hash(password,salt);
 
+
+        // salt is random string added to the object for making it difficult to crack passwords 
+
         const newUser =new User({
             fullName,
             email,
             password: hashedPassword
         })
+
+
 
 
         if(newUser){
@@ -115,6 +125,9 @@ export const updateProfile= async(req,res)=>{
         const updatedUser=await User.findByIdAndUpdate(userId,{profilePic:uploadResponse.secure_url}, {new:true});
 
 
+        // new:true ensures it returns the updated document 
+
+
         res.status(200).json(updatedUser)
     }
 
@@ -135,4 +148,10 @@ export const checkAuth =(req,res)=>{
         res.status(500).json({message: "Internal Server Error"});
     }
 }
+
+
+
+
+// see readme file for http status codes and response function syntaxes 
+
 

@@ -13,6 +13,7 @@ const io=new Server(server,{
 });
 
 
+// a helper function to find socketid for a given userid 
 export function getReceiverSocketId(userId){
     return userSocketMap[userId];
 };
@@ -21,6 +22,7 @@ export function getReceiverSocketId(userId){
 // users to store online users 
 
 const userSocketMap={};
+
 
 io.on("connection",(socket)=>{
     console.log("A user connected", socket.id);
@@ -36,12 +38,16 @@ io.on("connection",(socket)=>{
         delete userSocketMap[userId];
         io.emit("getOnlineUsers", Object.keys(userSocketMap));
     })
-})
-
-
-
-
+});
 
 
 
 export {io, app, server };
+
+
+
+
+
+// io.on(event, callback function) :            listens for events on the server 
+// "connection" is a predefined event in socket.io triggered whenever a new socket joins in 
+// socket.handshake.query is kinda communication between server and client, and the queries are sent from client when it connects with the server 

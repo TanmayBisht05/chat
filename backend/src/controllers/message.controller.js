@@ -31,6 +31,10 @@ export const getMessages = async (req,res) =>{
         });
 
 
+        // the syntax is:
+        // .find({$or:[cond1,cond2,cond3..]});
+
+
         res.status(200).json(messages);
         
     } catch (error) {
@@ -68,7 +72,6 @@ export const sendMessage =async(req,res)=>{
         const receiverSocketId=getReceiverSocketId(receiverId);
         if(receiverSocketId) {
             io.to(receiverSocketId).emit("newMessage", newMessage);
-            
         }
 
         res.status(201).json(newMessage);

@@ -6,6 +6,7 @@ const router=express.Router();
 
 router.get("/users",protectRoute, getUsersForSidebar);
 router.get("/:id",protectRoute,getMessages)
+// using :id makes it a dynamic parameter 
 
 router.post("/send/:id", protectRoute, sendMessage);
 

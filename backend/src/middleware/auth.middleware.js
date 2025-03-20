@@ -30,6 +30,7 @@ export const protectRoute = async (req, res, next)=>{
         // console.log("the logged in user's id: ", user._id);
 
         req.user=user;
+        // req.x=y creates a new attribute x for req (which is an http instance )
         next ();
 
          
